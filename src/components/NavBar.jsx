@@ -11,8 +11,8 @@ const NavBar = () => {
                 <NavLink to='/about'>About</NavLink>
                 <NavLink to='/career'>Career</NavLink>
             </div>
-            <div className="w-1/3 login flex justify-end gap-2">
-                <img src={login} alt="" srcset="" />
+            <div className="w-1/3 login flex justify-end gap-6">
+                <img src={login} alt="" srcSet="" />
                 <button className='btn btn-primary'>Login</button>
             </div>
         </div>
