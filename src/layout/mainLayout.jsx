@@ -22,13 +22,13 @@ const mainLayout = () => {
                 </nav>
             </header>
             <main className='w-11/12 mx-auto flex gap-3'>
-                <aside className='basis-3/12'>
+                <aside className='basis-3/12 sticky h-fit top-2'>
                     <LeftAside></LeftAside>
                 </aside>
                 <section className="news-body basis-6/12 ">
                     <Outlet></Outlet>
                 </section>
-               <aside className='basis-3/12 '>
+               <aside className='basis-3/12 sticky h-fit top-2 '>
                 <RightAside></RightAside>
                </aside>
             </main>

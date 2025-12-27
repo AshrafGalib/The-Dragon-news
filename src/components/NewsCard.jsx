@@ -1,4 +1,5 @@
 import { FaEye, FaStar, FaRegBookmark, FaShareAlt } from "react-icons/fa";
+import { Link, NavLink } from "react-router";
 
 const NewsCard = ({ news }) => {
   const {
@@ -53,7 +54,7 @@ const NewsCard = ({ news }) => {
             ? details.slice(0, 200) + "..."
             : details}
           <span className="text-primary font-semibold cursor-pointer ml-1">
-            Read More
+            <Link className="hover:underline">Read more</Link>
           </span>
         </p>
       </div>
