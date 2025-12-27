@@ -21,11 +21,11 @@ const mainLayout = () => {
                     <NavBar></NavBar>
                 </nav>
             </header>
-            <main className='w-11/12 mx-auto flex'>
+            <main className='w-11/12 mx-auto flex gap-3'>
                 <aside className='basis-3/12'>
                     <LeftAside></LeftAside>
                 </aside>
-                <section className="news-body basis-6/12 text-center">
+                <section className="news-body basis-6/12 ">
                     <Outlet></Outlet>
                 </section>
                <aside className='basis-3/12 '>
