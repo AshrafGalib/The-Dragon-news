@@ -1,13 +1,10 @@
 import React from 'react';
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 import Header from '../components/common/Header';
 import LatestNews from '../components/LatestNews';
 import NavBar from '../components/NavBar';
 import LeftAside from '../components/leftAside';
 import RightAside from '../components/rightAside';
-import Categories from '../components/Categories';
-
-
 
 const mainLayout = () => {
     return (

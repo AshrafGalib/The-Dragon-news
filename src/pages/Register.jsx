@@ -2,7 +2,7 @@ import React, { use, useState } from 'react';
 import { AuthContext } from '../Context/Context';
 import { sendEmailVerification} from "firebase/auth";
 //import { auth } from '/React practice/doc-talk/src/Services/Firebase/firebase.config';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Reg = () => {
 const{createUser,signOutUser,userUpdateProfile}=use(AuthContext)
@@ -40,11 +40,11 @@ const[errorMessage,setErrorMessage]=useState('')
           <h1 className='font-bold text-4xl text-center'>Register</h1>
         <form onSubmit={handleRegister} className="fieldset">
             <label className="label">Name</label>
-          <input type="text" className="input" placeholder="Name" name='name' />
+          <input type="text" className="input" placeholder="Name" name='name' required />
           <label className="label">Email</label>
-          <input type="email" className="input" name='email' placeholder="Email" />
+          <input type="email" className="input" name='email' placeholder="Email" required/>
           <label className="label">Set password</label>
-          <input type="password" name='password' className="input" placeholder="Password" />
+          <input type="password" name='password' className="input" placeholder="Password" required />
           <p>Already have an account? <Link to='/auth/login' className='text-blue-400 font-bold underline'>Login</Link></p>
           <button className="btn btn-neutral mt-4">Register</button>
           <p className='text-red-400'>{errorMessage}</p>

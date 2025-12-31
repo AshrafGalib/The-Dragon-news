@@ -1,8 +1,9 @@
 import { FaEye, FaStar, FaRegBookmark, FaShareAlt } from "react-icons/fa";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink } from "react-router-dom";
 
 const NewsCard = ({ news }) => {
   const {
+    id,
     title,
     author,
     thumbnail_url,
@@ -53,9 +54,9 @@ const NewsCard = ({ news }) => {
           {details.length > 200
             ? details.slice(0, 200) + "..."
             : details}
-          <span className="text-primary font-semibold cursor-pointer ml-1">
-            <Link className="hover:underline">Read more</Link>
-          </span>
+          <Link to={`/news-details/${id}`} className="hover:underline text-primary font-semibold cursor-pointer ml-1">
+            Read more
+          </Link>
         </p>
       </div>
        <div className="divider w-11/12 mx-auto"></div>

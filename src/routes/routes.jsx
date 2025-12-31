@@ -1,10 +1,12 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import mainLayout from "../layout/mainLayout";
 import Home from "../pages/Home";
 import CategoryNews from "../components/CategoryNews";
 import AuthLayout from "../layout/AuthLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import NewsDetails from "../pages/NewsDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router =createBrowserRouter(
     [
@@ -12,10 +14,14 @@ const router =createBrowserRouter(
             path:'/',
             Component:mainLayout,
             children:[
-                {index:true,element:<Home></Home>},
+                {path:'/',element:<Navigate to="/category/0" replace />},
                 {path:'/category/:id',
                  element:<CategoryNews></CategoryNews> ,
-                 loader:()=>fetch('/news.json')
+                 loader: async()=>{
+                    const res = await fetch('/news.json');
+                    const data = await res.json();
+                    return data;
+                 }
                 }
             ]
         },
@@ -26,7 +32,17 @@ const router =createBrowserRouter(
                 {path: '/auth/login',element:<Login></Login>},
                 {path:'/auth/register',element:<Register></Register>}
             ]
-        }, {
+        }, 
+        {
+          path:'/news-details/:id',
+                 loader: async () => {
+    const res = await fetch('/news.json');
+    const data = await res.json();
+    return data; // array of news
+  },
+  element:<PrivateRoute><NewsDetails></NewsDetails></PrivateRoute>
+        },
+        {
             path:'/*',
             element:<h1>ERRORRRR404</h1>
         },

@@ -1,12 +1,13 @@
 import { use, useRef, useState } from 'react';
 import { AuthContext } from '../Context/Context';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const Login = () => {
    const emailRef =useRef()
     const navigate=useNavigate()
     const location=useLocation()
-    //console.log(location)
-   const redirectPath = location.state?.from || '/';
+   console.log(location)
+const from = location.state?.from || "/category/0";
+   //console.log(redirectPath)
    const[errorMessage,setErrorMessage]=useState('')
 
     const {SignInUser,signOutUser,passReset}=use(AuthContext) 
@@ -29,7 +30,9 @@ const Login = () => {
                return
             }
             //if user's email verification is OKAY
-            navigate(redirectPath, { replace: true })
+            console.log("LOGIN STATE:", location.state);
+            navigate(from, { replace: true });
+           
    }catch(error){
  const match = error.message.match(/\(([^)]+)\)/)
             setErrorMessage(match[1])

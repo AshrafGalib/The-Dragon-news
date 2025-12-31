@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useLoaderData, useParams } from 'react-router';
+import { useLoaderData, useParams } from 'react-router-dom';
 import NewsCard from './NewsCard';
 
 const CategoryNews = () => {
     const[categoryNews,setCategoryNews]=useState([])
     const {id} = useParams()
     const data = useLoaderData()
-    // console.log(id,data)
+   // console.log(id,data)
     useEffect(()=>{
-
    if(id == '0'){
     setCategoryNews(data)
     return

@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router-dom';
 // import login from '../assets/user.png'
 import { AuthContext } from '../Context/Context';
 import { CgProfile } from 'react-icons/cg';

@@ -1,11 +1,11 @@
 import React, { use } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 const categoriesPromise = fetch('/categories.json')
 .then(res=>res.json())
 const Categories = () => {
     const categories = use(categoriesPromise)
-   // console.log(categories)
+   //console.log(categories)
     return (
         <div>
             <h2 className='font-bold'>All categories({categories.length})</h2>
