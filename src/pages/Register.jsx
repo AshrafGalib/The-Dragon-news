@@ -3,12 +3,13 @@ import React, { use, useEffect, useState } from 'react';
 //import { auth } from '/React practice/doc-talk/src/Services/Firebase/firebase.config';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
+import { sendEmailVerification } from 'firebase/auth';
 
 const Reg = () => {
   const [errorMessage,setErrorMessage]=useState('')
   const [uiLoading,setUiLoading]=useState(false)
   const navigate = useNavigate()
-  const{createUser,setUser,setProfile}=use(AuthContext)
+  const{createUser,logout,setProfile}=use(AuthContext)
 useEffect(()=>{
  if(!uiLoading)return
  const timer = setTimeout(() => {
@@ -27,11 +28,13 @@ useEffect(()=>{
     setUiLoading(true)
      try{
      const result =await  createUser(email,password)
-    await setProfile({
+     await sendEmailVerification(result.user);
+     await setProfile({
       displayName : name
     })
-     setUser(result.user)
-    navigate('/')
+    await logout()
+    navigate('/auth/login')
+    alert('Check your email or spam folder! Verify your account before logging in.');
      }catch(error){
       setUiLoading(false)
       setErrorMessage(error.message)

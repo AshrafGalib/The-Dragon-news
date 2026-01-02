@@ -1,13 +1,14 @@
 
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 const Login = () => {
+  const emailRef =useRef()
   const [errorMessage,setErrorMessage]=useState('')
   const [uiLoading,setUiLoading]=useState(false)
   const navigate =useNavigate()
   const location =useLocation()
-   const{login}=use(AuthContext)
+   const{login,logout,resetPassViaEmail}=use(AuthContext)
    
     useEffect(() => {
     if (!uiLoading) return
@@ -27,13 +28,29 @@ const Login = () => {
    setErrorMessage('')
    setUiLoading(true)
    try{
-    await login(email,password)
+    const result = await login(email,password)
+    if(!result.user.emailVerified){
+      setUiLoading(false)
+       logout()
+       alert('Please verify your email first.')
+       return
+    }
     navigate(`${location.state?location.state: '/'}`)
    } catch(error){
     console.log(error)
     setUiLoading(false)
     setErrorMessage(error.message)
    }
+    }
+
+    const handleForgetPass =()=>{
+      const email = emailRef.current.value
+      try{
+        resetPassViaEmail(email)
+        alert('A password reset link has been sent to your email. Check your inbox or spam folder')
+      }catch(error){
+        setErrorMessage(error.message)
+      }  
     }
 
 if(uiLoading) {
@@ -50,10 +67,10 @@ if(uiLoading) {
           <h1 className='font-bold text-4xl text-center'>Login</h1>
         <form onSubmit={handleLogin} className="fieldset">
           <label className="label">Email</label>
-          <input type="email" className="input"  name='email' placeholder="Email" />
+          <input type="email" className="input"  name='email' ref={emailRef} placeholder="Email" />
           <label className="label">Password</label>
           <input type="password" className="input" name='password' placeholder="Password" />
-          <div><a  className="link link-hover">Forgot password?</a></div>
+          <div><a onClick={handleForgetPass}  className="link link-hover">Forgot password?</a></div>
           {errorMessage && <p className="text-red-400 text-xs">{errorMessage}</p>}
           <button type="submit" className="btn btn-neutral mt-4">Login</button>
           
