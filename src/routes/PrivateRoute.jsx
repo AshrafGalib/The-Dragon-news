@@ -1,20 +1,19 @@
-import React, {useContext } from 'react';
-import { AuthContext } from '../Context/Context';
-import { Navigate, useLocation } from "react-router-dom";
+import React, { use } from 'react';
+import { AuthContext } from '../Provider/AuthProvider';
+import { Navigate, useLocation } from 'react-router-dom';
+import Loding from '../components/common/Loding';
 
 const PrivateRoute = ({children}) => {
-
-    const {user,loading}=useContext(AuthContext)
-    const location=useLocation()
-  console.log("FROM PRIVATE:", location.pathname)
-
+    const location =useLocation()
+    const{user,loading}=use(AuthContext)
     if(loading){
-        return <div className='flex justify-center mt-5'><span className="loading loading-ring loading-xl"></span></div>
+        return <Loding></Loding>
     }
-    if(!user){
-       return <Navigate state={{ from: location.pathname }} to="/auth/login" />;
-    }
+    if(user && user?.email){
     return children
+    }
+    return <Navigate state={location.pathname} to='/auth/login'></Navigate>
+      
 };
 
 export default PrivateRoute;

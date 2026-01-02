@@ -1,37 +1,48 @@
-import React, { use, useState } from 'react';
-import { AuthContext } from '../Context/Context';
-import { sendEmailVerification} from "firebase/auth";
+import React, { use, useEffect, useState } from 'react';
+
 //import { auth } from '/React practice/doc-talk/src/Services/Firebase/firebase.config';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Reg = () => {
-const{createUser,signOutUser,userUpdateProfile}=use(AuthContext)
-const[errorMessage,setErrorMessage]=useState('')
+  const [errorMessage,setErrorMessage]=useState('')
+  const [uiLoading,setUiLoading]=useState(false)
+  const navigate = useNavigate()
+  const{createUser,setUser,setProfile}=use(AuthContext)
+useEffect(()=>{
+ if(!uiLoading)return
+ const timer = setTimeout(() => {
+      setUiLoading(false)
+    }, 10000)
 
+    return () => clearTimeout(timer)
+
+},[uiLoading])
    const handleRegister =async(e)=>{
          e.preventDefault()
          const name =e.target.name.value
          const email =e.target.email.value
          const password =e.target.password.value
-        // console.log(name,email,password)
-
-         setErrorMessage('')
-
-         try{
-            //1.create user
-            const result = await createUser(email, password);
-            //2.send verification email
-            await sendEmailVerification(result.user);
-            //3.update profile
-            await userUpdateProfile({displayName: name});
-            //4.logout user
-            await signOutUser();
-            alert('Check your email or spam folder! Verify your account before logging in.');
-         }
-         catch(error){
-            const match = error.message.match(/\(([^)]+)\)/)
-            setErrorMessage(match[1])
-         }
+     console.log(name,email,password)
+    setUiLoading(true)
+     try{
+     const result =await  createUser(email,password)
+    await setProfile({
+      displayName : name
+    })
+     setUser(result.user)
+    navigate('/')
+     }catch(error){
+      setUiLoading(false)
+      setErrorMessage(error.message)
+     }
+    }
+    if(uiLoading){
+       return(
+    <div className='w-full flex justify-center items-center h-screen'>
+      <span className="skeleton skeleton-text">Creating account...</span>
+    </div>
+  )
     }
 
     return (
@@ -46,8 +57,9 @@ const[errorMessage,setErrorMessage]=useState('')
           <label className="label">Set password</label>
           <input type="password" name='password' className="input" placeholder="Password" required />
           <p>Already have an account? <Link to='/auth/login' className='text-blue-400 font-bold underline'>Login</Link></p>
-          <button className="btn btn-neutral mt-4">Register</button>
-          <p className='text-red-400'>{errorMessage}</p>
+          {errorMessage && <p className="text-red-400 text-xs">{errorMessage}</p>}
+          <button type='submit' className="btn btn-neutral mt-4">Register</button>
+         
         </form>
 
       </div>

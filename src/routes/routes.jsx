@@ -1,18 +1,18 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import mainLayout from "../layout/mainLayout";
-import Home from "../pages/Home";
+import MainLayout from "../layout/mainLayout";
 import CategoryNews from "../components/CategoryNews";
 import AuthLayout from "../layout/AuthLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NewsDetails from "../pages/NewsDetails";
 import PrivateRoute from "./PrivateRoute";
+import Loding from "../components/common/Loding";
 
 const router =createBrowserRouter(
     [
         {
             path:'/',
-            Component:mainLayout,
+            Component:MainLayout,
             children:[
                 {path:'/',element:<Navigate to="/category/0" replace />},
                 {path:'/category/:id',
@@ -21,7 +21,8 @@ const router =createBrowserRouter(
                     const res = await fetch('/news.json');
                     const data = await res.json();
                     return data;
-                 }
+                 },
+                 hydrateFallbackElement:<Loding></Loding>
                 }
             ]
         },
@@ -40,6 +41,7 @@ const router =createBrowserRouter(
     const data = await res.json();
     return data; // array of news
   },
+   hydrateFallbackElement:<Loding></Loding>,
   element:<PrivateRoute><NewsDetails></NewsDetails></PrivateRoute>
         },
         {
