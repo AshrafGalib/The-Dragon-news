@@ -8,6 +8,7 @@ import RightAside from '../components/rightAside';
 import Loding from '../components/common/Loding';
 
 const MainLayout = () => {
+   
      const {state} =useNavigation()
     // console.log(useNavigation())
     return (
@@ -32,6 +33,7 @@ const MainLayout = () => {
                 <RightAside></RightAside>
                </aside>
             </main>
+
         </div>
     );
 };
