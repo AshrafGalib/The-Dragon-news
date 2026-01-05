@@ -37,7 +37,7 @@ const Login = () => {
     }
     navigate(`${location.state?location.state: '/'}`)
    } catch(error){
-    console.log(error)
+    // console.log(error)
     setUiLoading(false)
     setErrorMessage(error.message)
    }
@@ -45,9 +45,15 @@ const Login = () => {
 
     const handleForgetPass =()=>{
       const email = emailRef.current.value
+      
       try{
+        if(!email){
+          alert(`Please enter your email address in the email field.`)
+return
+        }
         resetPassViaEmail(email)
-        alert('A password reset link has been sent to your email. Check your inbox or spam folder')
+        alert(`A password reset link is sent only to valid, previously registered email addresses.
+If your email is registered, please check your inbox or spam folder. Otherwise, no reset link was sent.`)
       }catch(error){
         setErrorMessage(error.message)
       }  
@@ -62,9 +68,12 @@ if(uiLoading) {
 }
 
     return (
-    <div className="card bg-base-100 w-full max-w-sm mx-auto mt-5 shrink-0 shadow-2xl">
+      <>
+     
+    <div className="card bg-base-100 w-11/12 max-w-sm mx-auto mt-5 shrink-0 shadow-2xl">
+     
        <div className="card-body">
-          <h1 className='font-bold text-4xl text-center'>Login</h1>
+          <h1 className='font-bold text-2xl text-center text-blue-500'>Login <span className="font-bold text-2xl text-black"> to Dragon-News</span></h1>
         <form onSubmit={handleLogin} className="fieldset">
           <label className="label">Email</label>
           <input type="email" className="input"  name='email' ref={emailRef} placeholder="Email" />
@@ -80,6 +89,11 @@ if(uiLoading) {
 
       </div>
     </div>
+     <div className='lg:hidden text-center mt-6'>
+                <Link to='/' className='btn btn-ghost text-accent'>Back to home</Link>
+            </div>
+    </>
+       
   
 
     );

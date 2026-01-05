@@ -14,10 +14,9 @@ const Header = () => {
         src={logo}
         alt="Logo"
         className="
-          w-24 
-          sm:w-28 
-          md:w-36 
-          lg:w-44
+          w-80
+          md:w-100 
+          lg:w-120
         "
       />
 

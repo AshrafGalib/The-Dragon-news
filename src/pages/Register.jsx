@@ -24,7 +24,7 @@ useEffect(()=>{
          const name =e.target.name.value
          const email =e.target.email.value
          const password =e.target.password.value
-     console.log(name,email,password)
+    //  console.log(name,email,password)
     setUiLoading(true)
      try{
      const result =await  createUser(email,password)
@@ -49,9 +49,10 @@ useEffect(()=>{
     }
 
     return (
-    <div className="card bg-base-100 w-full max-w-sm mx-auto mt-5 shrink-0 shadow-2xl">
+    <>
+    <div className="card bg-base-100 w-11/12 max-w-sm mx-auto mt-5 shrink-0 shadow-2xl">
        <div className="card-body">
-          <h1 className='font-bold text-4xl text-center'>Register</h1>
+          <h1 className='font-bold text-xl text-center text-blue-500'>Register<span className="font-bold text-xl text-black"> to Dragon-News</span></h1>
         <form onSubmit={handleRegister} className="fieldset">
             <label className="label">Name</label>
           <input type="text" className="input" placeholder="Name" name='name' required />
@@ -67,6 +68,9 @@ useEffect(()=>{
 
       </div>
     </div>
+    <div className='lg:hidden text-center mt-6'>
+                <Link to='/' className='btn btn-ghost text-accent'>Back to home</Link>
+            </div></>
     );
 };
 

@@ -10,7 +10,7 @@ const [user,setUser]=useState(null)
 const[loading,setLoading]=useState(true)
 
 
-    console.log("User :",user)
+    // console.log("User :",user)
     //createUser
     const createUser =(email,password)=>{
         setLoading(true)

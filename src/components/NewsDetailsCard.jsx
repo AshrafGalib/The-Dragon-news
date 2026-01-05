@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const NewsDetailsCard = ({news}) => {
     return (
-        <section className='col-span-9'>
+        <section className='w-full md:col-span-9'>
                 <h2 className='font-bold'>News Details</h2>
                <div className='border-2 border-gray-300 mt-6 p-5 rounded-2xl'>
                  <img className='w-full h-95 object-cover rounded-lg' src={news.image_url} alt="" />

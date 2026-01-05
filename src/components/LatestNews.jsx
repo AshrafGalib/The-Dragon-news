@@ -23,7 +23,7 @@ const LatestNews = () => {
 // const latestNews = AllNews.filter(singleNews=>singleNews.others.is_today_pick === true)
 //     setNews(latestNews)
 //     },[AllNews])
-    console.log(news)
+    // console.log(news)
     if(loading) {
         return (
       <div className="bg-base-200 px-2 py-3">
